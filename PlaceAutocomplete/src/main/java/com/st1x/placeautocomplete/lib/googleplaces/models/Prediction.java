@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Prediction {
+public class Prediction  implements Serializable{
 
     private String id;
     private String description;
@@ -21,14 +22,14 @@ public class Prediction {
         gson.fromJson(jsonObject.toString(), Prediction.class);
     }
 
-    private class MatchedSubstring {
+    private class MatchedSubstring implements  Serializable {
         private int length;
         private int offset;
     }
 
-    private class Term {
-        private int offset;
-        private String value;
+    public static class Term implements  Serializable{
+        public int offset;
+        public String value;
     }
 
     public String getId() {
@@ -61,6 +62,18 @@ public class Prediction {
 
     public ArrayList<String> getTypes() {
         return types;
+    }
+
+    public boolean containTerm(String constraint){
+
+        for(Term term :getTerms()){
+
+            if(term.value.toLowerCase().equals(constraint.toLowerCase())){return true;}
+
+        }
+
+            return false;
+
     }
 
     @Override

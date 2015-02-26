@@ -26,11 +26,11 @@ import java.util.List;
 
 public class PlaceAutoCompleteAdapter extends ArrayAdapter<Prediction> {
 
-    private List<Prediction> mPlaces;
-    private LayoutInflater mInflater;
+    protected List<Prediction> mPlaces;
+    protected LayoutInflater mInflater;
     private int mResource;
-    private AutoCompleteSearchQuery mQuery;
-    private GooglePlaces mGooglePlaces;
+    protected AutoCompleteSearchQuery mQuery;
+    protected GooglePlaces mGooglePlaces;
 
     public PlaceAutoCompleteAdapter(Context context, GooglePlaces googlePlaces, int textViewResourceId, AutoCompleteSearchQuery placeQuery) {
         super(context, textViewResourceId);
@@ -107,7 +107,7 @@ public class PlaceAutoCompleteAdapter extends ArrayAdapter<Prediction> {
         return filter;
     }
 
-    private List<Prediction> autocompletePlace(String constraint) {
+    protected List<Prediction> autocompletePlace(String constraint) {
         List<Prediction> places = new ArrayList<Prediction>();
         try {
             mQuery.setInput(constraint);
