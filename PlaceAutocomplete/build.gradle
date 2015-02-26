@@ -3,31 +3,46 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.5.+'
+        classpath 'com.android.tools.build:gradle:1.0.0'
     }
 }
-apply plugin: 'android'
+apply plugin: 'android-library'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
+version '0.1'
+group 'com.st1x'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
+
+
+dependencies {
+	compile 'com.google.android.gms:play-services:3.2.65'
+    compile 'com.google.code.gson:gson:2.2.4'
+}
+
+
 android {
-    compileSdkVersion 18
-    buildToolsVersion "18.1.0"
+    compileSdkVersion "Google Inc.:Google APIs:19"
+    buildToolsVersion "19.1.0"
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 16
+        minSdkVersion 14
+        targetSdkVersion 20
     }
 }
 
-dependencies {
-	compile 'com.android.support:appcompat-v7:18.0.0'
 
-    // Google Play Services
-    compile 'com.google.android.gms:play-services:3.2.65'
 
-    // Gson
-    compile 'com.google.code.gson:gson:2.2.4'
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "file://${System.env.HOME}/Dropbox/repoGlance/")
+            pom.packaging='aar'
+        }
+    }
 }
